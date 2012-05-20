@@ -1,0 +1,12 @@
+{
+    "name": "times",
+    "version": "0.0.1",
+    "engines": {
+	"node": "0.6.x",
+	"npm":  "1.1.x"
+    },
+    "dependencies": {
+	"express": "2.5.2",
+	"winston": "0.5.11"
+    }
+}
