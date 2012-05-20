@@ -13,9 +13,9 @@ var svg = d3.select("body").append("svg")
   .append("g")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-d3.json("miserables.json", function(miserables) {
+d3.json("data.json", function(data) {
   var matrix = [],
-      nodes = miserables.nodes,
+      nodes = data.nodes,
       n = nodes.length;
 
   // Compute index per node.
@@ -26,7 +26,7 @@ d3.json("miserables.json", function(miserables) {
   });
 
   // Convert links to matrix; count character occurrences.
-  miserables.links.forEach(function(link) {
+  data.links.forEach(function(link) {
     matrix[link.source][link.target].z += link.value;
     matrix[link.target][link.source].z += link.value;
     matrix[link.source][link.source].z += link.value;
@@ -107,7 +107,6 @@ d3.json("miserables.json", function(miserables) {
   }
 
   d3.select("#order").on("change", function() {
-    clearTimeout(timeout);
     order(this.value);
   });
 
@@ -127,9 +126,4 @@ d3.json("miserables.json", function(miserables) {
         .delay(function(d, i) { return x(i) * 4; })
         .attr("transform", function(d, i) { return "translate(" + x(i) + ")rotate(-90)"; });
   }
-
-  var timeout = setTimeout(function() {
-    order("group");
-    d3.select("#order").property("selectedIndex", 2).node().focus();
-  }, 5000);
 });
